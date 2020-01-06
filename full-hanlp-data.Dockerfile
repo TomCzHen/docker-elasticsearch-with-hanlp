@@ -1,6 +1,6 @@
 ARG es_version=7.5.0
 FROM tomczhen/elasticsearch-with-hanlp:${es_version}
-ARG hanlp_data_version=1.7.6
+ARG hanlp_data_version=1.7.5
 # install unzip
 RUN yum install unzip -y \
     && yum clean all \
