@@ -1,11 +1,15 @@
 name: Docker Image CI
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
     env:
       ES_VER: 7.5.0
       PLUGIN_VER: 7.5.0
+      HANLP_DATA_VER: 1.7.6
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,4 +23,13 @@ jobs:
           tag: ${ES_VER}
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-            
+      - name: Build full hanlp data image
+        run: docker build . --file full-hanlp-data.Dockerfile --build-arg es_version=${ES_VER} --build-arg hanlp_data_version=${HANLP_DATA_VER} --tag elasticsearch-with-hanlp:${ES_VER}-full
+      - name: Dockerize
+        if: success()
+        uses: manusa/actions-publish-docker@v1.0.1
+        with:
+          name: tomczhen/elasticsearch-with-hanlp
+          tag: ${ES_VER}-full
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
