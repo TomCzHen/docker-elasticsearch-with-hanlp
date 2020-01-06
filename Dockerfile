@@ -1,4 +1,4 @@
-ARG ES_VER=7.5.0
-ARG PLUGIN_VER=7.5.0
-FROM elasticsearch:${ES_VER}
-RUN elasticsearch-plugin install https://github.com/KennFalcon/elasticsearch-analysis-hanlp/releases/download/v${PLUGIN_VER}/elasticsearch-analysis-hanlp-${PLUGIN_VER}.zip
+ARG es_version=7.5.1
+FROM elasticsearch:${es_version}
+ARG plugin_version=7.5.0
+RUN elasticsearch-plugin install https://github.com/KennFalcon/elasticsearch-analysis-hanlp/releases/download/v${plugin_version}/elasticsearch-analysis-hanlp-${plugin_version}.zip
