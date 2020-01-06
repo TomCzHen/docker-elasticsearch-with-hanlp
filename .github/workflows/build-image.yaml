@@ -9,7 +9,7 @@ jobs:
     env:
       ES_VER: 7.5.0
       PLUGIN_VER: 7.5.0
-      HANLP_DATA_VER: 1.7.6
+      HANLP_DATA_VER: 1.7.5
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
