@@ -2,13 +2,21 @@ name: Docker Image CI
 on: [push]
 
 jobs:
-
-    build:
-        env:
-            ES_VER: 7.5.0
-            PLUGIN_VER: 7.5.0
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v1
-            - name: Build the Docker image
-              run: docker build . --file Dockerfile --build-arg ES_VER=${ES_VER} --build-arg PLUGIN_VER=${PLUGIN_VER} --tag elasticsearch-with-hanlp:${ES_VER}
+  build:
+    env:
+      ES_VER: 7.5.0
+      PLUGIN_VER: 7.5.0
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --build-arg es_version=${ES_VER} --build-arg plugin_version=${PLUGIN_VER} --tag elasticsearch-with-hanlp:${ES_VER}
+      - name: Dockerize
+        if: success()
+        uses: manusa/actions-publish-docker@v1.0.1
+        with:
+          name: tomczhen/elasticsearch-with-hanlp
+          tag: ${ES_VER}
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+            
