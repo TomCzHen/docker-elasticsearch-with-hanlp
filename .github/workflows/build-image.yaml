@@ -14,7 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --build-arg es_version=${ES_VER} --build-arg plugin_version=${PLUGIN_VER} --tag elasticsearch-with-hanlp:${ES_VER}
+        run: |
+          docker build . --file Dockerfile \
+          --build-arg es_version=${ES_VER} \
+          --build-arg plugin_version=${PLUGIN_VER} \
+          --tag elasticsearch-with-hanlp:${ES_VER}
       - name: Dockerize
         if: success()
         uses: manusa/actions-publish-docker@v1.0.1
@@ -24,7 +28,11 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: Build full hanlp data image
-        run: docker build . --file full-hanlp-data.Dockerfile --build-arg es_version=${ES_VER} --build-arg hanlp_data_version=${HANLP_DATA_VER} --tag elasticsearch-with-hanlp:${ES_VER}-full
+        run: |
+          docker build . --file full-hanlp-data.Dockerfile \
+          --build-arg es_version=${ES_VER} \
+          --build-arg hanlp_data_version=${HANLP_DATA_VER} \
+          --tag elasticsearch-with-hanlp:${ES_VER}-full
       - name: Dockerize
         if: success()
         uses: manusa/actions-publish-docker@v1.0.1
