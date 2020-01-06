@@ -1,0 +1,14 @@
+name: Docker Image CI
+on: [push]
+
+jobs:
+
+    build:
+        env:
+            ES_VER: 7.5.0
+            PLUGIN_VER: 7.5.0
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - name: Build the Docker image
+              run: docker build . --file Dockerfile --build-arg ES_VER=${ES_VER} --build-arg PLUGIN_VER=${PLUGIN_VER} --tag elasticsearch-with-hanlp:${ES_VER}
