@@ -8,5 +8,5 @@ RUN yum install unzip wget -y \
 # download hanlp data and rename custome dict file
 
 RUN wget -q https://github.com/hankcs/HanLP/releases/download/v${hanlp_data_version}/data-for-${hanlp_data_version}.zip -O hanlp-data.zip \
-    && unzip -uq hanlp-data.zip -d plugins/analysis-hanlp \
+    && unzip -O UTF-8 -uq hanlp-data.zip -d plugins/analysis-hanlp \
     && rm full-hanlp-data.zip
