@@ -6,7 +6,7 @@ RUN apt update -yqq && apt install unar wget -yqq \
     && wget -q https://github.com/hankcs/HanLP/releases/download/v${hanlp_data_version}/data-for-${hanlp_data_version}.zip -O hanlp-data.zip \
     && unar -q hanlp-data.zip \
     && rm hanlp-data.zip \
-    && cd /hanlp-data/data/dictionary/custom \
+    && cd hanlp-data/data/dictionary/custom \
     && mv 机构名词典.txt OrganizationName.txt \
     && mv 全国地名大全.txt ChinesePlaceName.txt \
     && mv 人名词典.txt PersonalName.txt \
