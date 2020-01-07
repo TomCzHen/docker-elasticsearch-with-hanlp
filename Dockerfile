@@ -1,7 +1,7 @@
 FROM debian:buster-slim as downloader
 ARG hanlp_data_version=1.7.5
 WORKDIR /tmp
-RUN apt update -yqq && apt install p7zip-full wget \
+RUN apt update -yqq && apt install p7zip-full wget -yqq \
     && wget -q https://github.com/hankcs/HanLP/releases/download/v${hanlp_data_version}/data-for-${hanlp_data_version}.zip -O hanlp-data.zip \
     && 7z x hanlp-data.zip \
     && cd data/dictionary/custom \
