@@ -15,6 +15,10 @@ jobs:
             es_version: 7.5.0
             plugin_version: 7.5.0
             hanlp_data_version: 1.7.5
+          - name: 6.4.3
+            es_version: 6.4.3
+            plugin_version: 6.4.3
+            hanlp_data_version: 1.7.0 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
