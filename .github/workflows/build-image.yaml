@@ -6,25 +6,30 @@ on:
 
 jobs:
   build:
-    env:
-      ES_VER: 7.5.0
-      PLUGIN_VER: 7.5.0
-      HANLP_DATA_VER: 1.7.5
+    strategy:
+      max-parallel: 2
+      matrix:
+        name: ['7.5.0']
+        include:
+          - name: 7.5.0
+            es_version: 7.5.0
+            plugin_version: 7.5.0
+            hanlp_data_version: 1.7.5
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Build the Docker image
         run: |
           docker build . --file Dockerfile \
-          --build-arg es_version=${ES_VER} \
-          --build-arg plugin_version=${PLUGIN_VER} \
-          --build-arg hanlp_data_version=${HANLP_DATA_VER} \
-          --tag elasticsearch-with-hanlp:${ES_VER}
+          --build-arg es_version=${{ matrix.es_version }} \
+          --build-arg plugin_version=${{ matrix.plugin_version }} \
+          --build-arg hanlp_data_version=${{ matrix.hanlp_data_version }} \
+          --tag elasticsearch-with-hanlp:${{ matrix.es_version }}
       - name: Dockerize
         if: success()
         uses: manusa/actions-publish-docker@v1.0.1
         with:
           name: tomczhen/elasticsearch-with-hanlp
-          tag: ${ES_VER}
+          tag: ${{ matrix.es_version }}
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
