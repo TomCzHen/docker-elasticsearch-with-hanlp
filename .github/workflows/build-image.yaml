@@ -9,7 +9,7 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        name: ['7.5.0']
+        name: ['7.5.0','6.4.3']
         include:
           - name: 7.5.0
             es_version: 7.5.0
